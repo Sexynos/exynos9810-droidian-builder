@@ -8,7 +8,9 @@ build-star2lte:
     - ln -sf python2.7 /usr/bin/python
     - wget https://raw.githubusercontent.com/LineageOS/android_system_core/lineage-17.1/mkbootimg/mkbootimg.py -O /usr/bin/mkbootimg
     - ln -s deviceinfo-star2lte deviceinfo
-    - ./build.sh
+    - ./build.sh -b builddir
+    - rm -rfv out/*
+    - cp -v builddir/tmp/partitions/boot.img out/
   artifacts:
     paths:
       - out/*
@@ -21,7 +23,9 @@ build-starlte:
     - ln -sf python2.7 /usr/bin/python
     - wget https://raw.githubusercontent.com/LineageOS/android_system_core/lineage-17.1/mkbootimg/mkbootimg.py -O /usr/bin/mkbootimg
     - ln -s deviceinfo-starlte deviceinfo
-    - ./build.sh
+    - ./build.sh -b builddir
+    - rm -rfv out/*
+    - cp -v builddir/tmp/partitions/boot.img out/
   artifacts:
     paths:
       - out/*
@@ -34,7 +38,9 @@ build-crownlte:
     - ln -sf python2.7 /usr/bin/python
     - wget https://raw.githubusercontent.com/LineageOS/android_system_core/lineage-17.1/mkbootimg/mkbootimg.py -O /usr/bin/mkbootimg
     - ln -s deviceinfo-crownlte deviceinfo
-    - ./build.sh
+    - ./build.sh -b builddir
+    - rm -rfv out/*
+    - cp -v builddir/tmp/partitions/boot.img out/
   artifacts:
     paths:
       - out/*
