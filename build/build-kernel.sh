@@ -31,8 +31,12 @@ if [ -n "$CC" ]; then
     MAKEOPTS="CC=$CC"
 fi
 
+touch "$KERNEL_DIR"/.scmversion
+
 cd "$KERNEL_DIR"
 make O="$OUT" $deviceinfo_kernel_defconfig
+sed -i 's/CONFIG_LOCALVERSION=".*"/CONFIG_LOCALVERSION="'"-${deviceinfo_localversion}"'"/g' $OUT/.config
+
 make O="$OUT" $MAKEOPTS -j$(nproc --all)
 make O="$OUT" $MAKEOPTS INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH="$INSTALL_MOD_PATH" modules_install
 
