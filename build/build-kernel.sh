@@ -21,9 +21,11 @@ esac
 
 export ARCH
 export CROSS_COMPILE="${deviceinfo_arch}-linux-android-"
+
 if [ "$ARCH" == "arm64" ]; then
     export CROSS_COMPILE_ARM32=arm-linux-androideabi-
 fi
+
 MAKEOPTS=""
 if [ -n "$CC" ]; then
     MAKEOPTS="CC=$CC"
@@ -33,7 +35,6 @@ cd "$KERNEL_DIR"
 make O="$OUT" $deviceinfo_kernel_defconfig
 make O="$OUT" $MAKEOPTS -j$(nproc --all)
 make O="$OUT" $MAKEOPTS INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH="$INSTALL_MOD_PATH" modules_install
-ls "$OUT/arch/$ARCH/boot/"*Image*
 
 if [ -n "$deviceinfo_kernel_apply_overlay" ] && $deviceinfo_kernel_apply_overlay; then
     ${TMPDOWN}/ufdt_apply_overlay "$OUT/arch/arm64/boot/dts/qcom/${deviceinfo_kernel_appended_dtb}.dtb" \
